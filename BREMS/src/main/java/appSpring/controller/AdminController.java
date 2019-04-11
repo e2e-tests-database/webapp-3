@@ -58,6 +58,9 @@ public class AdminController {
 	public String home(Model model, HttpServletRequest request) {
 
 		User loggedAdmin = userService.findByName(request.getUserPrincipal().getName());
+		
+		System.out.println("Access to admin page: " + loggedAdmin.getName() + " with roles: " + loggedAdmin.getRoles());
+		
 		model.addAttribute("admin", loggedAdmin);
 		model.addAttribute("resource", resourceService.findAll());
 		model.addAttribute("action", actionService.findAll());
@@ -359,9 +362,12 @@ public class AdminController {
 
 		String filename = resourceService.handleUploadImagetoDatabase(picture, resource.getId(), 
 					ImagesPath.IMAGES_RESOURCE.toString());
-		resource.setPicture(filename);
-		resource.setHasPhoto(true);
-		System.out.println("TODO OK");
+		
+		if(!filename.contains("ERROR")) {
+			resource.setPicture(filename);
+			resource.setHasPhoto(true);	
+		}
+		
 		resourceService.save(resource);
 
 		ResourceCopy copy;
@@ -420,9 +426,12 @@ public class AdminController {
 
 		String filename = resourceService.handleUploadImagetoDatabase(picture, resource.getId(), 
 					ImagesPath.IMAGES_RESOURCE.toString());
-		resource.setPicture(filename);
-		resource.setHasPhoto(true);
-		System.out.println("TODO OK");
+		
+		if(!filename.contains("ERROR")) {
+			resource.setPicture(filename);
+			resource.setHasPhoto(true);	
+		}
+		
 		resourceService.save(resource);
 
 		if (copyNumber < resource.getResourceCopies().size()) {

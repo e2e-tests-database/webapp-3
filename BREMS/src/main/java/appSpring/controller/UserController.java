@@ -67,9 +67,12 @@ public class UserController {
 			user.setTelephone(telephone);
 			String filename = userService.handleUploadImagetoDatabase(avatar, user.getId(), 
 					ImagesPath.IMAGES_USER.toString());
-			user.setAvatar(filename);
-			user.setHasPhoto(true);
-			System.out.println("TODO OK");
+			
+			if(!filename.contains("ERROR")) {
+				user.setAvatar(filename);
+				user.setHasPhoto(true);
+			}
+			
 			userService.save(user);
 		}			
 
