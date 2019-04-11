@@ -30,10 +30,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 		// PRIVATE PAGES
 		http.authorizeRequests().antMatchers("/admin/css/**", "/admin/js/**", "/admin/img/**", "/admin/fonts/**")
-				.hasAnyRole("ADMIN");
+				.hasAnyRole("ADMIN", "USER");
 		http.authorizeRequests().antMatchers("/user_profile", "/user_profile/edit/**").hasAnyRole("USER");
 		http.authorizeRequests().antMatchers("/{id}/reserve").hasAnyRole("USER");
-		http.authorizeRequests().antMatchers("/admin/", "/admin/**").hasAnyRole("ADMIN");
+		http.authorizeRequests().antMatchers("/admin/", "/admin/**").hasAnyRole("ADMIN", "USER");
 
 		// LOGIN
 		http.formLogin().loginPage("/login");
