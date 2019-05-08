@@ -44,6 +44,12 @@ public class UserRepositoryAuthenticationProvider implements AuthenticationProvi
 			roles.add(new SimpleGrantedAuthority(role));
 		}
 		userComponent.setLoggedUser(user);
+		
+		System.out.println("---------------------------");
+		System.out.println("User logged in the page");
+		System.out.println("Name: " + userComponent.getLoggedUser().getName());
+		System.out.println("Roles: " + userComponent.getLoggedUser().getRoles());
+		System.out.println("---------------------------");
 
 		return new UsernamePasswordAuthenticationToken(user.getName(), password, roles);
 	}
